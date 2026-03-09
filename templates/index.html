@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Management</title>
+</head>
+<body>
+    <h2>Add User</h2>
+    <form action="/add" method="POST">
+        <input type="text" name="name" placeholder="Enter Name" required>
+        <input type="email" name="email" placeholder="Enter Email" required>
+        <input type="text" name="phone" placeholder="Enter Phone" required>
+        <button type="submit">Add User</button>
+    </form>
+
+    <h2>User List</h2>
+    <table border="1" cellpadding="10">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+
+        {% for user in users %}
+        <tr>
+            <form action="/update/{{ user[0] }}" method="POST">
+                <td>{{ user[0] }}</td>
+                <td><input type="text" name="name" value="{{ user[1] }}"></td>
+                <td><input type="email" name="email" value="{{ user[2] }}"></td>
+                <td><input type="text" name="phone" value="{{ user[3] }}"></td>
+                <td><button type="submit">Update</button></td>
+            </form>
+            <td>
+                <form action="/delete/{{ user[0] }}" method="POST">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
